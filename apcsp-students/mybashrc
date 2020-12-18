@@ -1,0 +1,51 @@
+#!/bin/bash
+#
+############################
+# My personal bashrc stuff
+#
+# Call this script from ~/.bashrc as follows (or replace .bashrc)
+#
+#    if [ -f ~/.mybashrc ]; then
+#       . ~/.mybashrc
+#    fi
+#
+#
+# Dummy var to test if this script has been executed
+MYBASHRC=YES
+#
+
+######## Prompt ############
+DEFAULT=$PS1
+if [ "$TERM_PROGRAM" = "Apple_Terminal" ] ; then
+    export PS1="\u@\h:\W \$ "
+fi
+
+######### Aliases ##########
+#
+
+alias emacs="emacs -nw"
+alias restartwifi="wpa_cli -i wlan0 reconfigure"
+alias ll="ls -al"
+
+# git
+alias gita="git add"
+alias gitc="git commit"
+alias gitca="git commit -a"
+alias gitd="git diff"
+alias gitp="git push"
+alias gits="git status"
+alias gitls="git ls-files"   #list files in repo
+alias gitl="git log --oneline --graph --decorate"
+
+
+######### Functions ########
+#
+
+# fix ssh-add for remote shells
+sshadd() {
+    ssh-add
+    if [ $? -ne 0 ] ; then
+	eval `ssh-agent -s`
+	ssh-add
+    fi
+}
